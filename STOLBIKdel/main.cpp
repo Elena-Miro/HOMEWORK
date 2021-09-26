@@ -16,7 +16,7 @@ void printMatrix(int** matrix, size_t n, size_t m)
 
 void DelArray(int**& array, size_t n, size_t m, size_t index)
 {
-
+	index--;
 	m++;
 	int** copy = new int* [n];
 	for (int i = 0; i < n; i++)
