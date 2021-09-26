@@ -14,29 +14,47 @@ void printMatrix(int** matrix, size_t n, size_t m)
 	}
 }
 
-void insertArray(int**& array, size_t n, size_t m, size_t index, size_t value)
+void insertArray(int**& array, size_t n, size_t m, size_t index, int value[])
 {
-	int**& copy = new int* [m + 1];
-	for (size_t i = 0; i < index; i++)
-		for (size_t j = 0; j < index; j++)
-			copy[i][j] = array[i][j];
-	copy[index] = value;
+	
+	
+		int** copy = new int* [n];
+		for (int i = 0; i < n; i++)
+		{ 
+			copy[i] = new int[m];
+		}
+		for (size_t i = 0; i < n; i++)
+		{
+			for (size_t j = 0; j < m; j++)
+				copy[i][j] = array[i][j];
 
+			copy[i][index] = value[i];
+				for (int j = 0; j < index; j++)
+				{
+					copy[i][j] = array[i][j - 1];
+				}
+			
+		}
 
-
-	for (size_t i = index + 1; i <= n; i++)
-		for (size_t j = index + 1; j <= m; j++)
-			copy[i][j] = array[i - 1][j - 1];
 	for (size_t i = 0; i < n; i++)
 		delete[] array[i];
 	delete[]array;
 	array = copy;
 }
 
+void valueCol(int array[], const int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		cout << "Enter value: ";
+		cin >> array[i];
+	}
+}
 
 int main()
 {
 	setlocale(LC_ALL, "Ru");
+	
 	size_t n;
 	cout << "Enter amount of n in matrix: ";
 	cin >> n;
@@ -54,21 +72,22 @@ int main()
 			cin >> matrix[i][j];
 		}
 	printMatrix(matrix, n, m);
-
-
-	cout << "======================" << endl;
-
+	cout<<"====================================="<< endl;
+	
 	size_t index;
 	cout << "Enter index: ";
 	cin >> index;
-	size_t value;
-	cout << "Enter value: ";
-	cin >> value;
-	insertArray(matrix, n, m, index, value);
+
+	int* value=new int[n];
+	valueCol(value, n);
+	
+	insertArray(matrix, n, m, index,value);
+	
 	printMatrix(matrix, n, m);
 	for (size_t i = 0; i < n; i++)
 		delete[] matrix[i];
 	delete[] matrix;
+	delete[]value;
 	return 0;
 
 
