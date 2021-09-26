@@ -29,10 +29,10 @@ void insertArray(int**& array, size_t n, size_t m, size_t index, int value[])
 				copy[i][j] = array[i][j];
 
 			copy[i][index] = value[i];
-				for (int j = 0; j < index; j++)
-				{
-					copy[i][j] = array[i][j - 1];
-				}
+			for (int j = index; j >= m; --j)
+			{
+				copy[i][j] = array[i][j];
+			}
 			
 		}
 
